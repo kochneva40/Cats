@@ -16,18 +16,26 @@ def load_image(url): # Функция для картинки
         return None
 
 
+def set_image():
+    img = load_image(url)  # Функция загрузки изображения в который передаем адрес картинки
+
+    if img:
+        label.config(image=img)
+        label.image = img  # Чтобы сборщик мусора не выбросил нашу картинку
+
+
 window = Tk()
 window.title("Cats!")
 window.geometry("600x400")
 
-Label = Label() # Создаем метку на которой будет выводиться
-Label.pack()
+label = Label() # Создаем метку на которой будет выводиться
+label.pack()
+
+update_button = Button(text="Обновить", command=set_image) # Кнопка обновления изображения
+update_button.pack()
 
 url = "https://cataas.com/cat"
-img = load_image(url) # Функция загрузки изображения в который передаем адрес картинки
 
-if img:
-    Label.config(image=img)
-    Label.image = img # Чтобы сборщик мусора не выбросил нашу картинку
+set_image() # Вызываем функцию отображения картинки при первом запуске проекта
 
 window.mainloop()
