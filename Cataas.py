@@ -3,6 +3,19 @@ from PIL import Image, ImageTk
 import requests
 from io import BytesIO # Чтобы превратить картинку в нормальное изображение
 
+
+def load_image(url): # Функция для картинки
+    try: # Обработка исключений
+        response = requests.get(url) # Запрос по адресу
+        response.raise_for_status()
+        image_data = BytesIO(response.content)
+        img = Image.open(image_data)
+        return ImageTk.PhotoImage(img)
+    except Exception as e:
+        print(f"Произошла ошибка: {e}")
+        return None
+
+
 window = Tk()
 window.title("Cats!")
 window.geometry("600x400")
