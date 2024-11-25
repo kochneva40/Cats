@@ -17,11 +17,15 @@ def load_image(url): # Функция для картинки
         return None
 
 
-def set_image():
+def open_new_window(): # Открыть картинку в новом окне
     img = load_image(url)  # Функция загрузки изображения в который передаем адрес картинки
 
     if img:
-        label.config(image=img)
+        new_window = Toplevel()
+        new_window.title("Картинка с котиком")
+        new_window.geometry("600x480")
+        label = Label(new_window, image=img)  # Создаем метку на которой будет выводиться
+        label.pack()
         label.image = img  # Чтобы сборщик мусора не выбросил нашу картинку
 
 
@@ -33,8 +37,7 @@ window = Tk()
 window.title("Cats!")
 window.geometry("600x520")
 
-label = Label() # Создаем метку на которой будет выводиться
-label.pack()
+
 
 # update_button = Button(text="Обновить", command=set_image) # Кнопка обновления изображения
 # update_button.pack()
@@ -44,7 +47,7 @@ window.config(menu=menu_bar)
 
 file_menu = Menu(menu_bar, tearoff=0) # Добавляем меню
 menu_bar.add_cascade(label="Файл", menu=file_menu)
-file_menu.add_command(label="Загрузить фото", command=set_image)
+file_menu.add_command(label="Загрузить фото", command=open_new_window)
 file_menu.add_separator()
 file_menu.add_command(label="Выход", command=exit)
 
@@ -53,6 +56,6 @@ file_menu.add_command(label="Выход", command=exit)
 
 url = "https://cataas.com/cat"
 
-set_image() # Вызываем функцию отображения картинки при первом запуске проекта
+open_new_window() # Вызываем функцию отображения картинки при первом запуске проекта
 
 window.mainloop()
